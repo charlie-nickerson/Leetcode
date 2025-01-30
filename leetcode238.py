@@ -6,31 +6,24 @@
 
 
 def productExceptSelf(nums: list[int]) -> list[int]:
-    
-    product, num_zeros, product_array = 1, 0, []
-    
-    # Calculate the product of the array without zeros and count the amount of zeros that are present
-    for n in nums:
-        if n == 0: num_zeros += 1
-        else: product = n*product
+        
+        prefix = 1
+        products = [1]
+        for i in range(len(nums) - 1):
+            prefix = nums[i]*prefix
+            products.append(prefix)
 
-    # If the array contains more than 2 zeros then the product of every element of the array is zero
-    if num_zeros > 1:  return [0] * len(nums)
+        postfix = 1
+        i = len(nums) - 1
+        
+        while i >= 0:
+            products[i] = products[i]*postfix
+            postfix = nums[i]*postfix
+            i = i - 1
 
-    else:
-        for n in nums:
-            
-            # If there exists one zero in the array make sure to set the element of the array to the product of the array without the zeros
-            if num_zeros > 0:
                 
-                if n == 0: product_array.append(product)
-                
-                # All other non zeros elements have a product of zero
-                else: product_array.append(0)
-            
-            # If there arent any zeros present just take the product of the array and divide it by the current element
-            else: product_array.append(int(product/n))
-    return product_array
+
+        return products
 
 def main():
     nums = [1,2,4,6]
