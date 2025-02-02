@@ -8,24 +8,31 @@
 #    Every close bracket has a corresponding open bracket of the same type.
 
 
-def isOpen(c: str) -> bool:
-    if c == "[" or c == "{" or c == "(":
-        return True
-    else:
-        return False
-
 def isValid(s: str) -> bool:
-    set_count = 0
-    p = []
+    stack = []
+    
+    for c in s :
+        if c == "{" or c == "(" or c == "[":
+            stack.append(c)
+        elif len(stack) == 0 and (c == "}" or c == "]" or c == ")"):
+            print(stack)
+            return False
+        elif c == "}" and stack[-1] == "{":
+            stack.pop()
+        elif c == ")" and stack[-1] == "(":
+            stack.pop()
+        elif c == "]" and stack[-1] == "[":
+            stack.pop()
+        else: return False
+    if stack == []: return True
+    else: return False
 
-    # Check if the array length is even
-    if len(s) % 2 != 0: return False
+def main():
+    s = "(({()}))"
+    valid = isValid(s)
+    print(valid)
 
-    elif not isOpen(s[0]):
-        return False
-    else:
-        for c in s:
-            if isOpen(c):
-                s.append(c)
+if __name__ == "__main__":
+    main()
 
 
