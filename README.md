@@ -12,5 +12,5 @@
 - Two pointer method is O(n) time complexity and can be O(1) space complexity in some cases | Refer to leetcode167.py
 - You cannot add lists to sets because they are mutable
 - The two pointer method has a pointer at each end of an array in leetcode11. I wish there was a more intuitive reason on how to recognize to use the two pointer method this way
-
+- integer division always goes towards zero regardless of sign (-/+)
 
